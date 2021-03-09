@@ -1,0 +1,139 @@
+<html lang="ru">
+<head>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@300&display=swap" rel="stylesheet">
+    <style type="text/css">
+        #shejire {
+            width: 100%;
+            height: 100%;
+            border: 1px solid lightgray;
+        }
+    </style>
+    <title>Шежіре</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<div id="shejire"></div>
+
+<script type="text/javascript">
+
+    let nodes = new vis.DataSet([
+        { id: 1, label: 'Алаш' },
+        { id: 2, label: 'Ұлы жүз' },
+        { id: 3, label: 'Орта жүз' },
+        { id: 4, label: 'Кіші жүз' },
+        { id: 5, label: 'Қайырбай-Қаракесек' },
+        { id: 6, label: 'Байұлы' },
+        { id: 7, label: 'Жетіру' },
+        { id: 8, label: 'Байсары-Кете' },
+        { id: 9, label: 'Әлім' },
+        { id: 10, label: 'Шөмен' },
+        { id: 11, label: 'Шөмекей' },
+        { id: 12, label: 'Дөйт' },
+        { id: 13, label: 'Тоқа' },
+        { id: 14, label: 'Көнек' },
+        { id: 15, label: 'Аспан' },
+        { id: 16, label: 'Бозғыл' },
+        { id: 17, label: 'Қаратамыр' },
+        { id: 18, label: 'Торыбай' },
+        { id: 19, label: 'Қайқы (Балқы)' },
+        { id: 20, label: 'Болат' },
+        { id: 21, label: 'Темір' },
+        { id: 22, label: 'Қыдыр' },
+        { id: 23, label: 'Жауқашты' },
+        { id: 24, label: 'Сабай' },
+        { id: 25, label: 'Пұшық' },
+        { id: 26, label: 'Тоққожа' },
+        { id: 27, label: 'Ақбалқы' },
+        { id: 28, label: 'Әлімбет' },
+        { id: 29, label: 'Ұрыс' },
+        { id: 30, label: 'Орынбай' },
+        { id: 31, label: 'Қайдауыл' },
+        { id: 32, label: 'Тасен' },
+        { id: 33, label: 'Далда' },
+        { id: 34, label: 'Көшкімбай' },
+        { id: 35, label: 'Қыстаубай' },
+        { id: 36, label: 'Итемген' },
+        { id: 37, label: 'Сүтемген' },
+        { id: 38, label: 'Қуанышбек' },
+        { id: 39, label: 'Асылбек' },
+        { id: 40, label: 'Әлібек' },
+        { id: 41, label: 'Нұрлыбек' },
+        { id: 42, label: 'Қасым' },
+        { id: 43, label: 'Батырхан' },
+        { id: 44, label: 'Шерхан' }
+    ]);
+
+    // create an array with edges
+    var edges = new vis.DataSet(
+        [
+            { from: 1, to: 2 },   { from: 1, to: 3 },
+            { from: 1, to: 4 },   { from: 4, to: 5 },
+            { from: 4, to: 6 },   { from: 4, to: 7 },
+            { from: 5, to: 8 },   { from: 5, to: 9 },
+            { from: 5, to: 10 },  { from: 10, to: 11 },
+            { from: 10, to: 12 }, { from: 11, to: 13 },
+            { from: 11, to: 14 }, { from: 11, to: 15 },
+            { from: 11, to: 16 }, { from: 16, to: 17 },
+            { from: 16, to: 18 }, { from: 16, to: 19 },
+            { from: 19, to: 20 }, { from: 19, to: 21 },
+            { from: 19, to: 22 }, { from: 20, to: 23 },
+            { from: 20, to: 24 }, { from: 20, to: 25 },
+            { from: 20, to: 26 }, { from: 20, to: 27 },
+            { from: 20, to: 28 }, { from: 24, to: 29 },
+            { from: 29, to: 30 }, { from: 30, to: 31 },
+            { from: 31, to: 32 }, { from: 32, to: 33 },
+            { from: 33, to: 34 }, { from: 34, to: 35 },
+            { from: 35, to: 36 }, { from: 35, to: 37 },
+            { from: 36, to: 38 }, { from: 36, to: 39 },
+            { from: 36, to: 40 }, { from: 37, to: 41 },
+            { from: 39, to: 42 }, { from: 41, to: 43 },
+            { from: 41, to: 44 },
+        ]
+    );
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+        edges: {
+            smooth: {
+                type: "horizontal",
+                forceDirection: "vertical",
+                roundness: 0
+            }
+        },
+        layout: {
+            hierarchical: {
+                enabled: true,
+                sortMethod: "directed",
+                levelSeparation: 75,
+                shakeTowards: "roots",
+                parentCentralization: true
+            }
+        },
+        nodes: {
+            color: {
+                border: "#000000",
+                background: "#ffffff"
+            },
+            font: {
+                color: "#000000",
+                size: 14,
+                face: 'Bitter'
+            },
+            shape: "box"
+        },
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+</script>
+</body>
+</html>
